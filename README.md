@@ -1,6 +1,6 @@
 # Stackery Quickstart Java
 
-This is a simple backend API for a list app, written in Java.
+This is a simple backend API for a list app, written in Java8.
 
 Follow the [Stackery Quickstart](https://docs.stackery.io/docs/quickstart/quickstart-java/) to learn to use Stackery while writing this application.
 
