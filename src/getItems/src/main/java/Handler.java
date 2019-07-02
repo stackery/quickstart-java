@@ -29,7 +29,7 @@ public class Handler {
             }
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The table \"%s\" can't be found.\n", tableName);
-            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            System.err.println("Make sure this function is running in the same environment as the table.");
             System.exit(1);
         } catch (AmazonServiceException e) {
             System.err.println(e.getMessage());
