@@ -1,45 +1,26 @@
 import java.util.HashMap;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
-import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
-import com.amazonaws.services.dynamodbv2.model.ReturnValue;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.DynamodbEvent;
-import com.amazonaws.services.lambda.runtime.events.DynamodbEvent.DynamodbStreamRecord;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
-import java.util.ArrayList;
-
-import com.amazonaws.services.dynamodbv2.document.Table;
 
 public class Handler {
     public Object handler(Object event) {
-        String tableName = System.getenv("TABLE_NAME");
-        String tableArn = System.getenv("TABLE_ARN");
-        String itemName = "testUser";
-        System.out.println(event);
+        String tableName = System.getenv("TABLE_NAME"); // get the table name from the automatically populated environment variables
 
         HashMap<String,AttributeValue> item_values =
             new HashMap<String,AttributeValue>();
 
-        item_values.put("id", new AttributeValue("1"));
-        item_values.put("Name", new AttributeValue(itemName));
-        System.out.println(item_values);
+        item_values.put("id", new AttributeValue("1")); // modify with each invoke so the id does not repeat
+        item_values.put("content", new AttributeValue("This is my content")); // modify content here
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
+            // Write a new item to the ItemTable
             ddb.putItem(tableName, item_values);
+            System.out.format("Adding item \"%s\" to table  \"%s\".\n", item_values, tableName);
         } catch (ResourceNotFoundException e) {
             System.err.format("Error: The table \"%s\" can't be found.\n", tableName);
             System.err.println("Be sure that it exists and that you've typed its name correctly!");
@@ -48,6 +29,6 @@ public class Handler {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return "Done!";
+        return "Item added to table, done!";
     }
 }
