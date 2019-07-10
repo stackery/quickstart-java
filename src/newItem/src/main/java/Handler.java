@@ -18,7 +18,7 @@ public class Handler {
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
         try {
-            // Write a new item to the ItemTable
+            // Write a new item to the Item table
             ddb.putItem(tableName, item_values);
             System.out.format("Adding item \"%s\" to table  \"%s\".\n", item_values, tableName);
         } catch (ResourceNotFoundException e) {

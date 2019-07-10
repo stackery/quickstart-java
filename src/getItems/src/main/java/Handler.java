@@ -19,7 +19,7 @@ public class Handler {
         Table table = dynamoDB.getTable(tableName);
 
         try {
-            // Use dynamodb to get items from the ItemTable
+            // Use dynamodb to get items from the Item table
             ItemCollection<ScanOutcome> items = table.scan();
 
             Iterator<Item> iter = items.iterator();
