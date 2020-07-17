@@ -10,7 +10,7 @@ Resources:
         - ResourceName: newItem
       CodeUri: src/newItem
       Handler: Handler::handler
-      Runtime: java8
+      Runtime: java11
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -38,7 +38,7 @@ Resources:
         - ResourceName: getItems
       CodeUri: src/getItems
       Handler: Handler::handler
-      Runtime: java8
+      Runtime: java11
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
